@@ -5,7 +5,7 @@ const perfil = () => {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             
-            <Text>chofer</Text>
+            <Text>kkkkkkk</Text>
         </View>
     )
 }
