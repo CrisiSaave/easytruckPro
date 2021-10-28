@@ -5,7 +5,7 @@ const perfil = () => {
     return (
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
             
-            <Text>perfil</Text>
+            <Text>chofer</Text>
         </View>
     )
 }
