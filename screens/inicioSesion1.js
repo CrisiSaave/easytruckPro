@@ -1,7 +1,12 @@
-import { StyleSheet, TextInput, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, Avatar } from 'react-native-elements';
+import validator from 'validator';
+import { doc, getDocs, collection, query, where } from 'firebase/firestore';
+import file from "../database/firebase";
+
+
 
 
 
@@ -13,36 +18,88 @@ function inicioSesion1(props) {
         pass: ""
     });
 
-    const confirmarUsuario = () => {
-        console.log("formato invalido");
-        props.navigation.navigate('crea');
+    const [validar, setValidar] = useState("");
+    const [password, setValidarP] = useState("");
+    const [encontro, setEncontro] = useState("");
+
+
+    const verificador = (value) => {
+        setState({ ...state, mail: value });
+        if (value != "") {
+            if (validator.isEmail(value)) {
+                setValidar("")
+                setValidarP("")
+            } else {
+                setValidar("mail invalido")
+            }
+        } else {
+            setValidar("")
+            setValidarP("")
+        }
     }
 
-    const validar = "";
+    const ingresar = async () => {
+        if (state.mail != "" && state.pass != "") {
+            const refEncargados = collection(file.data(), "encargados");
+            const q = query(refEncargados, where("mail", "==", state.mail));
+            const consulta = await getDocs(q);
+            consulta.forEach((doc) => {
+
+                if (doc.data().mail === state.mail || doc.data().pass === state.pass) {
+                    setValidar("")
+                    setValidarP("")
+                    alert("ingreso un usuario valido :)") //cambiar por navigator
+                }
+            });
+            setValidarP('email o contraseña incorrecta');
+        } else {
+            setValidarP('ingrese un email y contraseña');
+        }
+
+
+    }
 
     return (
         <View style={styles.container}>
 
-            <Input placeholder='Ingresar Correo' errorStyle={{ color: 'red' }} errorMessage={validar}
-                leftIcon={<Icon name='user' size={24} color='black' />}
-                onChangeText={(value) => setState({ ...state, mail: value })} />
 
-            <Input placeholder="Contraseña" secureTextEntry={true}
+            <Avatar size="xlarge" rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }} onPress={() => console.log("Works!")}
+                containerStyle={{ flex: 2, margin: 'auto', }} />
+
+            <Input placeholder='email@address.com' containerStyle={styles.imputs}
+                errorStyle={{ color: 'black', margin: 'auto' }} errorMessage={validar}
+                leftIcon={<Icon name='user' size={24} color='black' />}
+                onChangeText={(value) => verificador(value)}
+                leftIconContainerStyle={styles.icono} />
+
+            <Input placeholder="password" secureTextEntry={true} containerStyle={styles.imputs}
                 leftIcon={<Icon name='lock' size={24} color='black' />}
-                onChangeText={(value) => setState({ ...state, pass: value })} />
-            <Button title="Ingresar" titleStyle={{ color: 'black' }} type="outline" buttonStyle={styles.botones}
-                onPress={() => confirmarUsuario()} />
-            <Button title="Crear" titleStyle={{ color: 'black' }} type="outline" buttonStyle={styles.botones}
+                onChangeText={(value) => setState({ ...state, pass: value })}
+                errorStyle={{ color: 'black', margin: 'auto' }}
+                leftIconContainerStyle={styles.icono} errorMessage={password} />
+
+            <Button title="Ingresar" titleStyle={{ color: 'black' }} type="outline"
+                buttonStyle={styles.botones}
+                onPress={() => ingresar(state)} />
+
+            <Button title="Crear" titleStyle={{ color: 'black' }} type="outline"
+                buttonStyle={styles.botones}
                 onPress={() => props.navigation.navigate('crearEncargado')} />
+
+
+
         </View>
     );
 }
 
 
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 25
+        padding: 25,
+        marginBottom: 100
+
     },
 
     botones: {
@@ -52,8 +109,16 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 3,
         padding: 6,
-        margin: 3
+        marginTop: 20,
+        
 
+    },
+    icono: {
+        margin: 'auto'
+    },
+    imputs:{
+        marginTop : 10,
+        marginBottom : 15
     }
 })
 

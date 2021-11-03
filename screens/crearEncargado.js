@@ -1,9 +1,9 @@
 import { StyleSheet, TextInput, View } from 'react-native';
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, Avatar } from 'react-native-elements';
 import validator from 'validator';
-import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, query, where, getDocs } from 'firebase/firestore';
 import file from "../database/firebase";
 
 
@@ -14,12 +14,15 @@ function CrearEncargado(props) {
         mail: "",
         pass: ""
     });
+    const [adminpass, setAdminpass] = useState("");
 
+    const [admin, setAdmin] = useState("");
     const [validar, setValidar] = useState("");
     const [password, setValidarP] = useState("");
-    const [admin, setAdmin] = useState("");
+    const flag = false;
 
-    const verificador = (value, pw) => {
+
+    const verificador = (value => {
         setState({ ...state, mail: value });
         if (value != "") {
             if (validator.isEmail(value)) {
@@ -30,70 +33,115 @@ function CrearEncargado(props) {
         } else {
             setValidar("")
         }
+    });
+
+
+    async function verAdmin(pw, flag) {
+        flag = false;
+        const refAdmin = collection(file.data(), "adminPass");
+        const q = query(refAdmin, where("pass", "==", pw));
+        const consulta = await getDocs(q);
+
+        consulta.forEach((doc) => {
+            if (doc.data().pass === pw) {
+                flag = true;
+                console.log(doc.data().pass)
+                return flag;
+
+            }
+        });
+        return flag;
     }
 
-    const crearUsuario = async () => {
 
-        if (validator.isEmail(state.mail)) {
-            if (state.pass === "") {
-                setValidarP("escriba una contraña")
-                if(password == ""){
-                    setAdmin("Ingrese Codigo");
+
+    const crearUsuario = async (pw, flag) => {
+
+        if (state.mail === "") {
+            setValidar("ingrese un email")
+        } else {
+            verificador(state.mail)
+        }
+        if (adminpass === "") {
+            setAdminpass("")
+            setAdmin("ingrese codigo")
+        } else {
+            setAdmin("")
+        }
+        if (state.pass === "") {
+            setValidarP("ingrese una contraseña");
+        } else {
+            setValidarP("");
+        }
+
+        if (validator.isEmail(state.mail) && adminpass != "" && state.pass != "") {
+            try {
+                flag = await verAdmin(pw, flag);
+
+            } catch (error) {
+                alert("error")
+            }
+            if (flag === true) {
+
+                try {
+                    const docRef = await addDoc(collection(file.data(), "encargados"), {
+                        mail: state.mail,
+                        pass: state.pass
+                    });
+                    alert("usuario creado con exito!")
+                    //navigator a iniciar sesion1
+                    props.navigation.navigate('inicioSesion1');
+                } catch (error) {
+                    alert("ERROR");
                 }
             } else {
-                if(password === ""){
-                    setAdmin("Ingrese Codigo");
-                }else{
-                    try {
-                        const docRef = await addDoc(collection(file.data(), "encargados"), {
-                            mail: state.mail,
-                            pass: state.pass
-                        });
-                        //navigator a iniciar sesion1
-                        props.navigation.navigate('inicioSesion1');
-                    } catch (error) {
-                        alert("ERROR");
-                    }
-                }
-                    
+                alert("adminpass invalido !");
             }
-        } else {
-            setValidar("mail invalido");
-        }
+        }//else{alert("llene todos los campos");}
     }
+
+
 
     return (
         <View style={styles.container}>
+            <Avatar size="xlarge" rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }} onPress={() => console.log("Works!")}
+                containerStyle={{ flex: 1, margin: 'auto' }} />
 
-            <Input placeholder='email@address.com' errorStyle={{ color: 'red', margin: 5 }} errorMessage={validar}
+            <Input placeholder='email@address.com' containerStyle={styles.imputs}
+                errorStyle={{ color: 'black', margin: 'auto' }} errorMessage={validar}
                 leftIcon={<Icon name='user' size={24} color='black' />}
                 onChangeText={(value) => verificador(value)}
                 leftIconContainerStyle={styles.icono} />
 
-            <Input placeholder="password" secureTextEntry={true}
+            <Input placeholder="password" secureTextEntry={true} containerStyle={styles.imputs}
                 leftIcon={<Icon name='lock' size={24} color='black' />}
-                onChangeText={(value) => setState({ ...state, pass: value })} errorStyle={{ color: 'black', margin: 9 }}
+                onChangeText={(pw) => setState({ ...state, pass: pw })}
+                errorStyle={{ color: 'black', margin: 'auto' }}
                 leftIconContainerStyle={styles.icono} errorMessage={password} />
 
-            <Input placeholder="admin-pass" secureTextEntry={true}
+            <Input placeholder="admin-pass" secureTextEntry={true} containerStyle={styles.imputs}
                 leftIcon={<Icon name='id-badge' size={24} color='black' />}
-                leftIconContainerStyle={styles.icono} errorMessage={admin} 
-                errorStyle={{ color: 'red', margin: 9 }}
-                 />
+                leftIconContainerStyle={styles.icono} errorMessage={admin}
+                errorStyle={{ color: 'black', margin: 'auto' }}
+                onChangeText={(value) => setAdminpass(value)} />
 
-            <Button title="Agregar" titleStyle={{ color: 'black' }} type="outline" buttonStyle={styles.botones}
-                onPress={() => crearUsuario()} />
+            <Button title="Agregar" titleStyle={{ color: 'black' }} type="outline"
+                buttonStyle={styles.botones}
+                onPress={() => crearUsuario(adminpass, flag)}
+                 />
 
 
         </View>
     );
+
 }
 
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 25
+        padding: 25,
+        marginBottom: 100
     },
 
     botones: {
@@ -103,11 +151,15 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderRadius: 3,
         padding: 6,
-        margin: 3
 
     },
     icono: {
-        marginRight: 9
+        margin: 'auto'
+    },
+
+    imputs: {
+        marginTop: 0,
+        marginBottom: 20
     }
 })
 
