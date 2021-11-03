@@ -1,4 +1,4 @@
-
+/*jshint esversion: 6 */
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -24,6 +24,7 @@ export default function App() {
   return <SafeAreaProvider>
     <NavigationContainer>
       <Stack.Navigator>
+      <Stack.Screen name="perfil" component={perfil} />
         <Stack.Screen name="inicioSesion1" component={inicioSesion1}/>
         <Stack.Screen name="inicioSesion2" component={inicioSesion2} />
         <Stack.Screen name="CrearCamionero" component={crearCamionero} />
@@ -31,7 +32,7 @@ export default function App() {
         <Stack.Screen name="detalleViaje" component={detalleViaje} />
         <Stack.Screen name="menuEncargado" component={menuEncargado} />
         <Stack.Screen name="notCamionero" component={notCamionero} />
-        <Stack.Screen name="perfil" component={perfil} />
+        
         <Stack.Screen name="viajeEnCurso" component={viajeEnCurso} />
       </Stack.Navigator>
     </NavigationContainer>
