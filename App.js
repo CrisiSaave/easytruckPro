@@ -14,6 +14,7 @@ import menuEncargado from './screens/menuEncargado';
 import notCamionero from './screens/notCamionero';
 import perfil from './screens/perfil';
 import viajeEnCurso from './screens/viajeEnCurso';
+import CrearEncargado from './screens/crearEncargado';
 
 
 
@@ -25,6 +26,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen name="inicioSesion1" component={inicioSesion1}/>
+        <Stack.Screen name="crearEncargado" component={CrearEncargado}/>
         <Stack.Screen name="inicioSesion2" component={inicioSesion2} />
         <Stack.Screen name="CrearCamionero" component={crearCamionero} />
         <Stack.Screen name="crearViaje" component={crearViaje} />
