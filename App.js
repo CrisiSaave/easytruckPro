@@ -3,6 +3,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Icon } from 'react-native-elements'
 
 //Screen
 import crearCamionero from './screens/crearCamionero';
@@ -15,6 +16,7 @@ import notCamionero from './screens/notCamionero';
 import perfil from './screens/perfil';
 import viajeEnCurso from './screens/viajeEnCurso';
 import CrearEncargado from './screens/crearEncargado';
+import listaEncargados from './screens/listaEncargados';
 
 
 
@@ -24,10 +26,18 @@ export default function App() {
 
   return <SafeAreaProvider>
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="inicioSesion1" component={inicioSesion1}/>
-        <Stack.Screen name="crearEncargado" component={CrearEncargado}/>
+      <Stack.Navigator screenOptions={opciones}>
+        <Stack.Screen name="listaEncargados" component={listaEncargados} />
         <Stack.Screen name="inicioSesion2" component={inicioSesion2} />
+        <Stack.Screen name="inicioSesion1" component={inicioSesion1}
+          options={{
+            title: 'Inicio Encargado', headerRight: () => (
+              <Icon raised name='users' type='font-awesome'
+                color='black' containerStyle={{ margin: 'auto' }}
+                onPress={() => alert('press')} />
+            )
+          }} />
+        <Stack.Screen name="crearEncargado" component={CrearEncargado} />
         <Stack.Screen name="CrearCamionero" component={crearCamionero} />
         <Stack.Screen name="crearViaje" component={crearViaje} />
         <Stack.Screen name="detalleViaje" component={detalleViaje} />
@@ -38,7 +48,26 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   </SafeAreaProvider>;
-  
+
 }
+
+const botones = ({
+  headerRight: () => (
+    <Icon name='g-translate' color='#00aced' />
+  )
+});
+
+const opciones = ({
+  headerStyle: {
+    backgroundColor: 'black',
+  },
+  headerTintColor: 'white',
+  headerTitleAlign: 'center',
+  headerTitleStyle: {
+    color: 'white',
+    margin: 'center',
+  },
+
+})
 
 

@@ -50,11 +50,6 @@ const inicioSesion2 = () => {
             <Button title="Ingresar" titleStyle={{ color: 'black' }} type="outline" buttonStyle={styles.botones}
                 onPress={() => crearUsuario()} />
 
-            <Button title="Crear" titleStyle={{ color: 'black' }} type="outline" buttonStyle={styles.botones}
-                onPress={() => props.navigation.navigate('crearEncargado')} />
-            
-
-
         </View>
     );
 }

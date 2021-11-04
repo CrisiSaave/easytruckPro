@@ -113,9 +113,11 @@ const styles = StyleSheet.create({
         
 
     },
+
     icono: {
         margin: 'auto'
     },
+    
     imputs:{
         marginTop : 10,
         marginBottom : 15

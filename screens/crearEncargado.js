@@ -104,7 +104,8 @@ function CrearEncargado(props) {
 
     return (
         <View style={styles.container}>
-            <Avatar size="xlarge" rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }} onPress={() => console.log("Works!")}
+            <Avatar size="xlarge" rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }}
+                onPress={() => console.log("Works!")}
                 containerStyle={{ flex: 1, margin: 'auto' }} />
 
             <Input placeholder='email@address.com' containerStyle={styles.imputs}
@@ -128,7 +129,7 @@ function CrearEncargado(props) {
             <Button title="Agregar" titleStyle={{ color: 'black' }} type="outline"
                 buttonStyle={styles.botones}
                 onPress={() => crearUsuario(adminpass, flag)}
-                 />
+            />
 
 
         </View>
@@ -154,7 +155,8 @@ const styles = StyleSheet.create({
 
     },
     icono: {
-        margin: 'auto'
+        margin: 'auto',
+
     },
 
     imputs: {
