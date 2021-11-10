@@ -4,7 +4,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button, Avatar } from 'react-native-elements';
 
 
-const inicioSesion2 = () => {
+const inicioSesion2 = (props) => {
     const [state, setState] = useState({
         mail: "",
         pass: ""
@@ -35,8 +35,11 @@ const inicioSesion2 = () => {
         <View style={styles.container}>
 
 
-            <Avatar size="xlarge" rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }} onPress={() => console.log("Works!")}
-                containerStyle={{ flex: 2, margin: 'auto', }} />
+            <Avatar size="xlarge"
+                rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }}
+                onPress={() => props.navigation.popToTop()}
+                containerStyle={{ flex: 1, margin: 'auto', }} />
+
             <Input placeholder='email@address.com' errorStyle={{ color: 'red', margin: 5 }} errorMessage={validar}
                 leftIcon={<Icon name='user' size={24} color='black' />}
                 onChangeText={(value) => verificador(value)}
@@ -55,7 +58,7 @@ const inicioSesion2 = () => {
 }
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 0.9,
         padding: 25,
         marginBottom: 100
 
@@ -72,7 +75,8 @@ const styles = StyleSheet.create({
 
     },
     icono: {
-        marginRight: 9
+        margin: 'auto',
+        marginRight: 10
     }
 })
 

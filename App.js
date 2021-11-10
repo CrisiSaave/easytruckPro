@@ -22,21 +22,17 @@ import listaEncargados from './screens/listaEncargados';
 
 const Stack = createNativeStackNavigator();
 
+
+
 export default function App() {
 
   return <SafeAreaProvider>
+
     <NavigationContainer>
-      <Stack.Navigator screenOptions={opciones}>
+      <Stack.Navigator screenOptions={opciones} initialRouteName="inicio">
+        <Stack.Screen name="inicioSesion1" component={inicioSesion1} />
         <Stack.Screen name="listaEncargados" component={listaEncargados} />
         <Stack.Screen name="inicioSesion2" component={inicioSesion2} />
-        <Stack.Screen name="inicioSesion1" component={inicioSesion1}
-          options={{
-            title: 'Inicio Encargado', headerRight: () => (
-              <Icon raised name='users' type='font-awesome'
-                color='black' containerStyle={{ margin: 'auto' }}
-                onPress={() => alert('press')} />
-            )
-          }} />
         <Stack.Screen name="crearEncargado" component={CrearEncargado} />
         <Stack.Screen name="CrearCamionero" component={crearCamionero} />
         <Stack.Screen name="crearViaje" component={crearViaje} />

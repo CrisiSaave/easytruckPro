@@ -12,13 +12,15 @@ function CrearEncargado(props) {
 
     const [state, setState] = useState({
         mail: "",
-        pass: ""
+        pass: "",
+        name: ""
     });
     const [adminpass, setAdminpass] = useState("");
 
     const [admin, setAdmin] = useState("");
     const [validar, setValidar] = useState("");
     const [password, setValidarP] = useState("");
+    const [user, setUser] = useState("");
     const flag = false;
 
 
@@ -56,7 +58,9 @@ function CrearEncargado(props) {
 
 
     const crearUsuario = async (pw, flag) => {
-
+        if(state.user === ""){
+            setUser("ingrese un nombre")
+        }
         if (state.mail === "") {
             setValidar("ingrese un email")
         } else {
@@ -86,7 +90,8 @@ function CrearEncargado(props) {
                 try {
                     const docRef = await addDoc(collection(file.data(), "encargados"), {
                         mail: state.mail,
-                        pass: state.pass
+                        pass: state.pass,
+                        name: state.name
                     });
                     alert("usuario creado con exito!")
                     //navigator a iniciar sesion1
@@ -105,23 +110,29 @@ function CrearEncargado(props) {
     return (
         <View style={styles.container}>
             <Avatar size="xlarge" rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }}
-                onPress={() => console.log("Works!")}
-                containerStyle={{ flex: 1, margin: 'auto' }} />
+                onPress={() => props.navigation.popToTop()}
+                containerStyle={{ flex: 1, margin: 'auto'}} />
+
+            <Input placeholder="name"  containerStyle={styles.imputs}
+                leftIcon={<Icon name='user' size={26} color='black' />}
+                onChangeText={(n) => setState({ ...state, name: n})}
+                errorStyle={{ color: 'black', margin: 'auto' }}
+                leftIconContainerStyle={styles.icono} errorMessage={user} />
 
             <Input placeholder='email@address.com' containerStyle={styles.imputs}
                 errorStyle={{ color: 'black', margin: 'auto' }} errorMessage={validar}
-                leftIcon={<Icon name='user' size={24} color='black' />}
+                leftIcon={<Icon name='envelope' size={19} color='black' />}
                 onChangeText={(value) => verificador(value)}
                 leftIconContainerStyle={styles.icono} />
 
             <Input placeholder="password" secureTextEntry={true} containerStyle={styles.imputs}
-                leftIcon={<Icon name='lock' size={24} color='black' />}
+                leftIcon={<Icon name='lock' size={27} color='black' />}
                 onChangeText={(pw) => setState({ ...state, pass: pw })}
                 errorStyle={{ color: 'black', margin: 'auto' }}
                 leftIconContainerStyle={styles.icono} errorMessage={password} />
 
             <Input placeholder="admin-pass" secureTextEntry={true} containerStyle={styles.imputs}
-                leftIcon={<Icon name='id-badge' size={24} color='black' />}
+                leftIcon={<Icon name='id-badge' size={26} color='black' />}
                 leftIconContainerStyle={styles.icono} errorMessage={admin}
                 errorStyle={{ color: 'black', margin: 'auto' }}
                 onChangeText={(value) => setAdminpass(value)} />
@@ -156,6 +167,7 @@ const styles = StyleSheet.create({
     },
     icono: {
         margin: 'auto',
+        marginRight: 10
 
     },
 

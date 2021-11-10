@@ -1,7 +1,7 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button, Avatar } from 'react-native-elements';
+import { Input, Button, Avatar, Tab, TabView } from 'react-native-elements';
 import validator from 'validator';
 import { doc, getDocs, collection, query, where } from 'firebase/firestore';
 import file from "../database/firebase";
@@ -58,12 +58,29 @@ function inicioSesion1(props) {
 
 
     }
+    const [index, setIndex] = useState('');
 
-    return (
+    function intento() {
+        return (
+
+            1
+
+        )
+    }
+
+    return ([
+        
+        
+
         <View style={styles.container}>
 
+            <Icon raised name='users' type='font-awesome'
+                color='black' size={30} containerStyle={{ margin: 'auto' }}
+                onPress={() => props.navigation.navigate('listaEncargados')} />
 
-            <Avatar size="xlarge" rounded icon={{ name: 'truck', type: 'font-awesome', color: "black" }} onPress={() => console.log("Works!")}
+            <Avatar size="xlarge"
+                rounded icon={{ name: 'user', type: 'font-awesome', color: "black" }}
+                onPress={() => props.navigation.navigate('inicioSesion2')}
                 containerStyle={{ flex: 2, margin: 'auto', }} />
 
             <Input placeholder='email@address.com' containerStyle={styles.imputs}
@@ -89,7 +106,8 @@ function inicioSesion1(props) {
 
 
         </View>
-    );
+
+    ]);
 }
 
 
@@ -110,17 +128,18 @@ const styles = StyleSheet.create({
         borderRadius: 3,
         padding: 6,
         marginTop: 20,
-        
+
 
     },
 
     icono: {
-        margin: 'auto'
+        margin: 'auto',
+        marginRight: 10
     },
-    
-    imputs:{
-        marginTop : 10,
-        marginBottom : 15
+
+    imputs: {
+        marginTop: 10,
+        marginBottom: 15
     }
 })
 
