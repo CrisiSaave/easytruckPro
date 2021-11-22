@@ -93,7 +93,7 @@ function CrearEncargado(props) {
                         pass: state.pass,
                         name: state.name
                     });
-                    alert("usuario creado con exito!")
+                    alert("encargado creado con exito!")
                     //navigator a iniciar sesion1
                     props.navigation.navigate('inicioSesion1');
                 } catch (error) {

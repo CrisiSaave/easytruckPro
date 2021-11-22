@@ -1,7 +1,7 @@
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { useState } from 'react'
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { Input, Button, Avatar, Tab, TabView } from 'react-native-elements';
+import { Input, Button, Avatar, Text} from 'react-native-elements';
 import validator from 'validator';
 import { doc, getDocs, collection, query, where } from 'firebase/firestore';
 import file from "../database/firebase";
@@ -45,10 +45,10 @@ function inicioSesion1(props) {
             const consulta = await getDocs(q);
             consulta.forEach((doc) => {
 
-                if (doc.data().mail === state.mail || doc.data().pass === state.pass) {
+                if (doc.data().mail === state.mail && doc.data().pass === state.pass) {
                     setValidar("")
                     setValidarP("")
-                    alert("ingreso un usuario valido :)") //cambiar por navigator
+                    props.navigation.push('menuEncargado')
                 }
             });
             setValidarP('email o contraseña incorrecta');
@@ -58,15 +58,7 @@ function inicioSesion1(props) {
 
 
     }
-    const [index, setIndex] = useState('');
-
-    function intento() {
-        return (
-
-            1
-
-        )
-    }
+    
 
     return ([
         
@@ -77,11 +69,13 @@ function inicioSesion1(props) {
             <Icon raised name='users' type='font-awesome'
                 color='black' size={30} containerStyle={{ margin: 'auto' }}
                 onPress={() => props.navigation.navigate('listaEncargados')} />
-
+           
             <Avatar size="xlarge"
                 rounded icon={{ name: 'user', type: 'font-awesome', color: "black" }}
                 onPress={() => props.navigation.navigate('inicioSesion2')}
-                containerStyle={{ flex: 2, margin: 'auto', }} />
+                containerStyle={{ flex: 1, margin: 'auto', }} />
+            
+            <Text h3>Encargado</Text>
 
             <Input placeholder='email@address.com' containerStyle={styles.imputs}
                 errorStyle={{ color: 'black', margin: 'auto' }} errorMessage={validar}

@@ -17,6 +17,7 @@ import perfil from './screens/perfil';
 import viajeEnCurso from './screens/viajeEnCurso';
 import CrearEncargado from './screens/crearEncargado';
 import listaEncargados from './screens/listaEncargados';
+import eliminarCamionero from './screens/eliminarCamionero';
 
 
 
@@ -30,28 +31,26 @@ export default function App() {
 
     <NavigationContainer>
       <Stack.Navigator screenOptions={opciones} initialRouteName="inicio">
-        <Stack.Screen name="inicioSesion1" component={inicioSesion1} />
-        <Stack.Screen name="listaEncargados" component={listaEncargados} />
-        <Stack.Screen name="inicioSesion2" component={inicioSesion2} />
-        <Stack.Screen name="crearEncargado" component={CrearEncargado} />
-        <Stack.Screen name="CrearCamionero" component={crearCamionero} />
-        <Stack.Screen name="crearViaje" component={crearViaje} />
-        <Stack.Screen name="detalleViaje" component={detalleViaje} />
-        <Stack.Screen name="menuEncargado" component={menuEncargado} />
-        <Stack.Screen name="notCamionero" component={notCamionero} />
+
+        <Stack.Screen name="inicioSesion1" component={inicioSesion1} options={{ headerLeft: null }} />
         <Stack.Screen name="perfil" component={perfil} />
-        <Stack.Screen name="viajeEnCurso" component={viajeEnCurso} />
+        <Stack.Screen name="viajeEnCurso" component={viajeEnCurso} options={{ headerLeft: null }} />
+        <Stack.Screen name="inicioSesion2" component={inicioSesion2} options={{ headerLeft: null }} />
+        <Stack.Screen name="notCamionero" component={notCamionero} />
+        <Stack.Screen name="detalleViaje" component={detalleViaje} />
+        <Stack.Screen name="crearViaje" component={crearViaje} />
+        <Stack.Screen name="crearCamionero" component={crearCamionero} />
+        <Stack.Screen name="eliminarCamionero" component={eliminarCamionero} />
+        <Stack.Screen name="menuEncargado" component={menuEncargado} options={{ headerLeft: null }}/>
+        <Stack.Screen name="listaEncargados" component={listaEncargados} />
+        <Stack.Screen name="crearEncargado" component={CrearEncargado} />
+
       </Stack.Navigator>
     </NavigationContainer>
   </SafeAreaProvider>;
 
 }
 
-const botones = ({
-  headerRight: () => (
-    <Icon name='g-translate' color='#00aced' />
-  )
-});
 
 const opciones = ({
   headerStyle: {

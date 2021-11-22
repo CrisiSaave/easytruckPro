@@ -6,49 +6,45 @@ import file from "../database/firebase";
 import AwesomeAlert from 'react-native-awesome-alerts';
 
 
-
-
-
-function listaEncargados(props) {
-
+const eliminarCamionero = (props) => {
     const [aler, setAlerta] = useState(false);
-    const [encargados, setEncargados] = useState([])
+    const [camioneros, setcamioneros] = useState([])
     const [key, setKey] = useState();
 
 
     useEffect(async () => {
 
-        const user = [];
-        const refEncargados = collection(file.data(), "encargados");
-        const consulta = await getDocs(refEncargados);
+        const camionero = [];
+        const refcamioneros = collection(file.data(), "camioneros");
+        const consulta = await getDocs(refcamioneros);
         consulta.forEach((doc) => {
-            const { mail, name } = doc.data()
-            user.push({
+            const { nombre, patente } = doc.data()
+            camionero.push({
                 id: doc.id,
-                mail,
-                name
+                nombre,
+                patente
             })
 
         });
-        setEncargados(user)
+        setcamioneros(camionero)
 
     }, [])
 
 
     async function eliminar() {
-        const consulta = await deleteDoc(doc(file.data(), "encargados", key));
+        const consulta = await deleteDoc(doc(file.data(), "camioneros", key));
     }
 
 
-    const alerta = (userId) => {
-        setKey(userId);
+    const alerta = (camioneroId) => {
+        setKey(camioneroId);
         setAlerta(true);
     }
 
     const respuesta = (flag) => {
         if (flag === true) {
             eliminar();
-            props.navigation.popToTop();
+            props.navigation.pop();
 
         }
         setAlerta(false);
@@ -70,23 +66,23 @@ function listaEncargados(props) {
 
         ,
 
-        encargados.map((user) => {
+        camioneros.map((camionero) => {
             return (
 
                 <ListItem.Swipeable
-                    key={user.id}
+                    key={camionero.id}
                     bottomDivider={{ marginTop: 100 }}
                     rightStyle={{ backgroundColor: 'red' }}
                     rightContent={
                         <Button
                             title="Delete"
                             buttonStyle={{ minHeight: '100%', backgroundColor: 'red', padding: (24, 24) }}
-                            onPress={() => alerta(user.id)}
+                            onPress={() => alerta(camionero.id)}
                         />
                     }>
                     <ListItem.Content>
-                        <ListItem.Title>{user.name}</ListItem.Title>
-                        <ListItem.Subtitle>{user.mail}</ListItem.Subtitle>
+                        <ListItem.Title>{camionero.nombre}</ListItem.Title>
+                        <ListItem.Subtitle>{camionero.patente}</ListItem.Subtitle>
                     </ListItem.Content>
                     <ListItem.Chevron />
                 </ListItem.Swipeable>
@@ -98,8 +94,8 @@ function listaEncargados(props) {
         <AwesomeAlert
             show={aler}
             showProgress={false}
-            title="Eliminar Encargado"
-            message="Seguro que desea eliminar al encargado ?"
+            title="Eliminar camionero"
+            message="Seguro que lo desea eliminar ?"
             closeOnTouchOutside={true}
             closeOnHardwareBackPress={false}
             showCancelButton={true}
@@ -115,13 +111,7 @@ function listaEncargados(props) {
             }}
         />,
     ]);
-
+    
 }
 
-
-
-const styles = StyleSheet.create({
-
-})
-
-export default listaEncargados
+export default eliminarCamionero
