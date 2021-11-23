@@ -30,20 +30,20 @@ export default function App() {
   return <SafeAreaProvider>
 
     <NavigationContainer>
-      <Stack.Navigator screenOptions={opciones} initialRouteName="inicio">
+      <Stack.Navigator screenOptions={opciones}  initialRouteName="inicio">
 
-        <Stack.Screen name="inicioSesion1" component={inicioSesion1} options={{ headerLeft: null }} />
-        <Stack.Screen name="perfil" component={perfil} />
-        <Stack.Screen name="viajeEnCurso" component={viajeEnCurso} options={{ headerLeft: null }} />
-        <Stack.Screen name="inicioSesion2" component={inicioSesion2} options={{ headerLeft: null }} />
-        <Stack.Screen name="notCamionero" component={notCamionero} />
-        <Stack.Screen name="detalleViaje" component={detalleViaje} />
-        <Stack.Screen name="crearViaje" component={crearViaje} />
-        <Stack.Screen name="crearCamionero" component={crearCamionero} />
-        <Stack.Screen name="eliminarCamionero" component={eliminarCamionero} />
-        <Stack.Screen name="menuEncargado" component={menuEncargado} options={{ headerLeft: null }}/>
-        <Stack.Screen name="listaEncargados" component={listaEncargados} />
-        <Stack.Screen name="crearEncargado" component={CrearEncargado} />
+        <Stack.Screen name="inicioSesion1" component={inicioSesion1} options={{ headerLeft: null, title: 'Inicio'}} />
+        <Stack.Screen name="perfil" component={perfil} options={{title: 'Perfil'}}/>
+        <Stack.Screen name="viajeEnCurso" component={viajeEnCurso} options={{ headerLeft: null, title: 'En curso...'}} />
+        <Stack.Screen name="inicioSesion2" component={inicioSesion2} options={{ headerLeft: null,title: 'Inicio'  }} />
+        <Stack.Screen name="notCamionero" component={notCamionero} options={{title: 'Notificaciones', headerLeft: null}}/>
+        <Stack.Screen name="detalleViaje" component={detalleViaje} options={{title: 'Viaje'}} />
+        <Stack.Screen name="crearViaje" component={crearViaje} options={{title:'EasyTruck'}}/>
+        <Stack.Screen name="crearCamionero" component={crearCamionero} options={{title: 'EasyTruck'}}/>
+        <Stack.Screen name="eliminarCamionero" component={eliminarCamionero} options={{title: 'Camioneros'}}/>
+        <Stack.Screen name="menuEncargado" component={menuEncargado} options={{ headerLeft: null, title: 'Menú'}}/>
+        <Stack.Screen name="listaEncargados" component={listaEncargados} options={{title: 'Encargados'}}/>
+        <Stack.Screen name="crearEncargado" component={CrearEncargado} options={{title: 'EasyTruck'}} />
 
       </Stack.Navigator>
     </NavigationContainer>
@@ -62,6 +62,7 @@ const opciones = ({
     color: 'white',
     margin: 'center',
   },
+  title: 'EasyTruck'
 
 })
 

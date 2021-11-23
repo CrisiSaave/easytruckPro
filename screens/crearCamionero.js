@@ -125,7 +125,7 @@ const crearCamionero = (props) => {
                 onChangeText={(n) => setCamion({ ...camion, contacto: n })}
                 errorMessage={verContacto} />
 
-            <Input placeholder="Direccion" containerStyle={{ width: '85%', marginBottom: 15 }}
+            <Input placeholder="Dirección" containerStyle={{ width: '85%', marginBottom: 15 }}
                 leftIcon={<Icon name='map-marker' size={30} color='black' type='font-awesome' />}
                 leftIconContainerStyle={styles.icono}
                 onChangeText={(n) => setCamion({ ...camion, direccion: n })}
@@ -143,7 +143,7 @@ const crearCamionero = (props) => {
                 onChangeText={(n) => setCamion({ ...camion, patente: n })}
                 errorMessage={verPatente} />
 
-            <Input placeholder="Tipo Camion" containerStyle={{ width: '85%', marginBottom: 15 }}
+            <Input placeholder="Tipo Camión" containerStyle={{ width: '85%', marginBottom: 15 }}
                 leftIcon={<Icon name='truck-loading' size={22} color='black' type='font-awesome-5' />}
                 leftIconContainerStyle={styles.icono}
                 onChangeText={(n) => setCamion({ ...camion, tipoC: n })}

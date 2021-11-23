@@ -5,13 +5,13 @@ import { Button, Text, Icon, Divider } from 'react-native-elements';
 
 const menuEncargado = (props) => {
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1}}>
 
             <Icon name='log-out' size={27} color='black' type='feather'
                 containerStyle={{ marginLeft: '90%' }}
                 onPress={() => props.navigation.popToTop('inicioSesion1')} />
 
-            <Divider orientation="horizontal" width={5} color='black' style={{ marginTop: '20%'}} />
+            <Divider orientation="horizontal" width={5} color='black' style={{ marginTop: '15%'}} />
 
             <Icon name='user' size={55} color='black' type='feather'
                 containerStyle={{

@@ -245,7 +245,7 @@ const crearViaje = (props) => {
                 onChangeText={(n) => setViaje({ ...viaje, contacto: n })}
                 errorMessage={verCont} />
 
-            <Input multiline placeholder="Descripcion"
+            <Input multiline placeholder="Descripción"
                 containerStyle={{ width: '85%', height: 65 }}
                 inputStyle={{ height: '100%', paddingTop: 10 }}
                 inputContainerStyle={{ height: '100%' }}

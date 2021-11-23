@@ -85,7 +85,7 @@ return (
         </View>
 
         <View style={{ marginTop: 30, marginLeft: 10, marginBottom: 8 }}>
-            <Text h4>Ultimos Viajes</Text>
+            <Text h4>Últimos Viajes</Text>
         </View>
         <View>
             {

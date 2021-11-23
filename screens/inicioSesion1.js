@@ -110,8 +110,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 25,
-        marginBottom: 100
-
+        marginBottom: 100,
+       
     },
 
     botones: {
